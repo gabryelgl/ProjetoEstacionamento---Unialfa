@@ -2,6 +2,7 @@ package view;
 
 import java.util.Scanner;
 import model.User;
+import controller.UserController;
 
 public class UserView {
 	
@@ -9,7 +10,7 @@ public class UserView {
 		Scanner scan = new Scanner(System.in);
 	
 		
-		System.out.println("***MENU USU�RIO***");
+		System.out.println("***MENU USU�RIO***");
 		System.out.println("1 - Cadastrar");
 		System.out.println("2 - Listar");
 		System.out.println("3 - Atualizar");
@@ -24,7 +25,7 @@ public class UserView {
 			break;
 			
 		case 2:
-			toDisplay(user);
+			toDisplay();
 			break;
 			
 		case 9:
@@ -50,16 +51,60 @@ public class UserView {
 		
 		userView(user);
 		
+		UserController userControl = new UserController();
+		userControl.register(user);
+		
 		scan.close();
 	}
 	
-	public void toDisplay(User user) {
-
-			System.out.println("***LISTA DE USUARIO***");
-			System.out.println("Username: "+ user.getUsername());
-			System.out.println("Password: "+ user.getPassword());
-			System.out.println("");
-			userView(null);			
+	public String toDisplay() {
+			UserController userControl = new UserController();
+			
+			// retorna quando não possui usuário cadastrado
+			System.out.println("Não possui usuário cadastrado!");
+			
+			// retorna as informações do usuário se possui registro
+			return "Possui cadastro";
+			
+	}
+	
+	public void update() {
+		Scanner scan = new Scanner(System.in);
+		User user = new User();
+		UserController userControl = new UserController();
+		
+		System.out.println("*** ATUALIZAÇÃO DE USUÁRIO ***");
+		System.out.println("Informe o username:");
+		user.setUsername(scan.next());
+		System.out.println("Informe a senha:");
+		user.setPassword(scan.next());
+		System.out.println("");
+		
+		if (!userControl.update(user)) {
+			System.out.println("Usuário não encontrado!");
+		} else {
+			System.out.println("Cadastro do usuário atualizado com sucesso!");
+		}
+		
+	}
+	
+	public void delete() {
+		Scanner scan = new Scanner(System.in);
+		User user = new User();
+		UserController userControl = new UserController();
+		
+		System.out.println("*** ATUALIZAÇÃO DE USUÁRIO ***");
+		System.out.println("Informe o username:");
+		user.setUsername(scan.next());
+		System.out.println("Informe a senha:");
+		user.setPassword(scan.next());
+		System.out.println("");
+		
+		if (!userControl.delete(user) == false) {
+			System.out.println("Usuário não encontrado!");
+		} else {
+			System.out.println("Usuário excluído com sucesso!");
+		}
 	}
 
 

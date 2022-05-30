@@ -20,4 +20,14 @@ public class User {
 	public String getPassword() {
 		return password;
 	}
+	
+	@Override
+	public String toString() {
+		System.out.println("***LISTA DE USUARIO***");
+		System.out.println("Username: "+ getUsername());
+		System.out.println("Password: "+ getPassword());
+		System.out.println("");
+		return null;
+	}
+	
 }
